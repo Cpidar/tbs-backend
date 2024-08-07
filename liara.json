@@ -1,0 +1,5 @@
+{
+    "platform": "docker",
+    "app": "tabeshelecshop-api",
+    "port": 9000
+}
