@@ -51,7 +51,7 @@
     "medusa-react": "^9.0.17",
     "melipayamak-api": "^0.1.0",
     "mellat-checkout": "^0.4.0",
-    "minisearch": "^6.3.0",
+    "minisearch": "^7.1.0",
     "prism-react-renderer": "^2.0.4",
     "typeorm": "^0.3.16",
     "woocommerce-rest-ts-api": "^7.0.0"
