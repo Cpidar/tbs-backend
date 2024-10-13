@@ -4,46 +4,7 @@ import {
     type SubscriberArgs,
 } from "@medusajs/medusa"
 import TtlCacheService from "src/services/ttl-cache"
-import https from 'https'
-
-async function fetchOTP(hostname, path, data) {
-    return new Promise(async (resolve, reject) => {
-
-        const options = {
-            hostname: hostname,
-            path: path,
-            port: 443,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': data.length
-            }
-        };
-
-        const body = [];
-
-        const req = https.request(options, res => {
-            // console.log('httpsPost statusCode:', res.statusCode);
-            // console.log('httpsPost headers:', res.headers);
-
-            res.on('data', d => {
-                body.push(d);
-            });
-            res.on('end', () => {
-                // console.log(`httpsPost data: ${body}`);
-                resolve(JSON.parse(Buffer.concat(body).toString()));
-            });
-        });
-        req.on('error', e => {
-            // console.log(`ERROR httpsPost: ${e}`);
-            reject(e);
-        });
-        req.write(data);
-        req.end();
-
-    });
-
-}
+import { fetchOTP } from "../utils/fetch";
 
 export default async function PasswordLessSubscriber({
     data, eventName, container, pluginOptions,
@@ -55,9 +16,19 @@ export default async function PasswordLessSubscriber({
     });
     console.log('otp-subscriber', phone)
     try {
-        const res = { code: '4198' }
-        // const res: any = await fetchOTP('console.melipayamak.com', '/api/send/otp/d2a06968057f4cdf80c0a719d815e24b', body)
-        if(res?.code) {
+        // const res = { code: '4198' }
+        const res: any = await fetchOTP('console.melipayamak.com', '/api/send/otp/d2a06968057f4cdf80c0a719d815e24b', body)
+
+        // node version 22
+        // const res: any = await fetch("https://console.melipayamak.com/api/send/otp/d2a06968057f4cdf80c0a719d815e24b", {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Content-Length': data.length
+        //     },
+        //     body
+        // })
+        if (res?.code) {
             console.log('request sms: ', phone, res.code)
             ttlCacheService.set(`${phone}`, res.code, 120)
             console.log(await ttlCacheService.get(phone))

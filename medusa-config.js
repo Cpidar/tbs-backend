@@ -55,8 +55,66 @@ const plugins = [
         download_file_duration:
           process.env.S3_DOWNLOAD_FILE_DURATION,
         prefix: process.env.S3_PREFIX,
+        aws_config_object: {
+          endpoint: process.env.S3_URL
+        }
     },
   },
+  {
+    resolve: `medusa-plugin-meilisearch`,
+    options: {
+      // config object passed when creating an instance
+      // of the MeiliSearch client
+      config: {
+        host: process.env.MEILISEARCH_HOST,
+        apiKey: process.env.MEILISEARCH_API_KEY,
+      },
+      settings: {
+        products: {
+          indexSettings: {
+            searchableAttributes: [
+              "title", 
+              "description",
+              "variant_sku",
+            ],
+            displayedAttributes: [
+              "id", 
+              "title", 
+              "description", 
+              "variant_sku", 
+              "thumbnail", 
+              "handle",
+            ],
+          },
+          primaryKey: "id",
+        },
+      },
+    },
+  },
+  // {
+  //   resolve: "medusa-plugin-strapi-ts",
+  //   options: {
+  //     strapi_protocol: process.env.STRAPI_PROTOCOL,
+  //     strapi_host: process.env.STRAPI_SERVER_HOSTNAME,
+  //     strapi_port: process.env.STRAPI_PORT,
+  //     strapi_secret: process.env.STRAPI_SECRET,
+  //     strapi_default_user: {
+  //         username: process.env.STRAPI_MEDUSA_USER,
+  //         password: process.env.STRAPI_MEDUSA_PASSWORD,
+  //         email: process.env.STRAPI_MEDUSA_EMAIL,
+  //         confirmed: true,
+  //         blocked: false,
+  //         provider: "local",
+  //     },
+  //     strapi_admin: {
+  //         username: process.env.STRAPI_SUPER_USERNAME,
+  //         password: process.env.STRAPI_SUPER_PASSWORD,
+  //         email: process.env.STRAPI_SUPER_USER_EMAIL,
+  //     },
+  //     auto_start: true,
+  //   },
+  // },
+
   {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
@@ -71,16 +129,16 @@ const plugins = [
 ];
 
 const modules = {
-  cacheService: {
-    resolve: "@medusajs/cache-inmemory",
-    options: {
-      ttl: 300,
-    },
-  },
+  // cacheService: {
+  //   resolve: "@medusajs/cache-inmemory",
+  //   options: {
+  //     ttl: 300,
+  //   },
+  // },
+  // eventBus: {
+  //   resolve: "@medusajs/event-bus-local",
+  // },
   eventBus: {
-    resolve: "@medusajs/event-bus-local",
-  },
-  /*eventBus: {
     resolve: "@medusajs/event-bus-redis",
     options: {
       redisUrl: REDIS_URL
@@ -91,7 +149,7 @@ const modules = {
     options: {
       redisUrl: REDIS_URL
     }
-  },*/
+  },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
@@ -102,7 +160,7 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
-  // redis_url: REDIS_URL
+  redis_url: REDIS_URL
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */

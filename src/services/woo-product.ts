@@ -1,7 +1,7 @@
 import isEmpty from "lodash/isEmpty"
 import omit from "lodash/omit"
 import random from "lodash/random"
-import { Product, ProductCategoryService, ProductService, ProductStatus, ProductVariantService, SalesChannelService, ShippingProfileService, TransactionBaseService } from "@medusajs/medusa"
+import { Product, ProductCategoryService, ProductService, ProductStatus, ProductVariantService, SalesChannelService, ShippingProfileService, TransactionBaseService, Logger } from "@medusajs/medusa"
 import { EntityManager } from "typeorm"
 import WooCacheService from "./woo-cache"
 import WooClientService from "./woo-client"
@@ -21,6 +21,7 @@ class WooProductService extends TransactionBaseService {
     public woo_: WooClientService
     public cacheService_: WooCacheService
     public salesChannelService_: SalesChannelService
+    public logger_: Logger
 
     public options: any
 
@@ -34,6 +35,7 @@ class WooProductService extends TransactionBaseService {
             shippingProfileService,
             wooClientService,
             wooCacheService,
+            logger
         },
         options
     ) {
@@ -46,6 +48,7 @@ class WooProductService extends TransactionBaseService {
             shippingProfileService,
             wooClientService,
             wooCacheService,
+            logger
         })
 
         this.options = options
@@ -58,6 +61,7 @@ class WooProductService extends TransactionBaseService {
         this.shippingProfileService_ = shippingProfileService
         this.woo_ = wooClientService
         this.cacheService_ = wooCacheService
+        this.logger_ = logger
     }
 
     // withTransaction(transactionManager: EntityManager) {
@@ -114,9 +118,12 @@ class WooProductService extends TransactionBaseService {
             const product = await this.productService_
                 .withTransaction(manager)
                 .create(normalizedProduct)
+                .then(p => {
+                    this.logger_.info(`product with id ${p.id} created`)
+                    return p
+                })
 
             if (variants) {
-                console.log(product.options)
                 variants = variants.map((v) =>
                     this.addVariantOptions_(v, product.options)
                 )
