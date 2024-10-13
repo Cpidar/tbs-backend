@@ -56,7 +56,7 @@ const plugins = [
           process.env.S3_DOWNLOAD_FILE_DURATION,
         prefix: process.env.S3_PREFIX,
         aws_config_object: {
-          endpoint: process.env.S3_URL
+          endpoint: process.env.S3_ENDPOINT
         }
     },
   },
