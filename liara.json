@@ -1,5 +1,11 @@
 {
     "platform": "docker",
     "app": "tabeshelecshop-api",
-    "port": 9000
+    "port": 9000,
+    "disks": [
+        {
+            "name": "uploads",
+            "mountTo": "uploads"
+        }
+    ]
 }
