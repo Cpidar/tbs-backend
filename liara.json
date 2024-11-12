@@ -5,7 +5,7 @@
     "disks": [
         {
             "name": "uploads",
-            "mountTo": "uploads"
+            "mountTo": "/app/uploads"
         }
     ]
 }

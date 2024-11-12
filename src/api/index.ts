@@ -10,6 +10,7 @@ class AdminPostProductCategoriesCategoryReq extends MedusaAdminPostProductCatego
 
   @IsInt()
   @Min(0)
+  @IsOptional()
   visits: number;
 
   @IsBoolean()

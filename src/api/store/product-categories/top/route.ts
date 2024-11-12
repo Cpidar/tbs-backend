@@ -1,5 +1,5 @@
-import { 
-    MedusaRequest, 
+import {
+    MedusaRequest,
     MedusaResponse,
     StoreGetProductCategoriesParams,
     ProductCategoryService
@@ -12,7 +12,7 @@ export const GET = async (
     // const categoriesService: ProductCategoryService = req.scope.resolve(
     //     "productCategoryService"
     //   )
-      const {limit,offset,expand} = req.query;
+    const { limit, offset, expand } = req.query;
     //   const remoteQuery = req.scope.resolve(ContainerRegistrationKeys.REMOTE_QUERY)
 
     //   const queryObject = remoteQueryObjectFromString({
@@ -23,14 +23,14 @@ export const GET = async (
     //     },
     //     fields: req.remoteQueryConfig.fields,
     //   })
-    
+
     //   let { metadata } = await remoteQuery(queryObject)
 
     const categoriesService: ProductCategoryService = req.scope.resolve(
-       "productCategoryService"
+        "productCategoryService"
     )
 
-    let results = expand ? await categoriesService.listAndCount({}, {take: parseInt(`${limit || '10'}`), skip: parseInt(`${offset || '0'}`), relations: [ `${expand}` ]}) : await categoriesService.listAndCount({}, {take: parseInt(`${limit || '10'}`), skip: parseInt(`${offset || '0'}`)})
+    let results = expand ? await categoriesService.listAndCount({}, { take: parseInt(`${limit || '10'}`), skip: parseInt(`${offset || '0'}`), relations: [`${expand}`] }) : await categoriesService.listAndCount({}, { take: parseInt(`${limit || '10'}`), skip: parseInt(`${offset || '0'}`) })
     let categories = []
     results[0].forEach(element => {
         categories.push({
@@ -54,11 +54,11 @@ export const GET = async (
         })
     });
 
-    categories = categories.sort(function(a, b) {
+    categories = categories.sort(function (a, b) {
         return b.visits - a.visits;
     })
     //let results: [ProductCategory[],number] = await categoriesService.listAndCount({i})
-      res.json({
+    res.json({
         count: results[1],
         limit: limit,
         offset: offset,

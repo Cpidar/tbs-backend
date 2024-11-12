@@ -3716,6 +3716,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@medusajs/inventory@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@medusajs/inventory@npm:2.0.4"
+  peerDependencies:
+    "@medusajs/framework": ^2.0.0
+    "@mikro-orm/core": 5.9.7
+    "@mikro-orm/migrations": 5.9.7
+    "@mikro-orm/postgresql": 5.9.7
+    awilix: ^8.0.1
+  checksum: 10c0/fba12fa083cc983454ebb71d6f45b798f956a736ba787c179901c2688ca18190f84d15bc47ed7ef90c6cb59ec2532e29497a6d0996904fd79cc0f200e2c8c1bb
+  languageName: node
+  linkType: hard
+
 "@medusajs/link-modules@npm:^0.2.12":
   version: 0.2.12
   resolution: "@medusajs/link-modules@npm:0.2.12"
@@ -3874,6 +3887,19 @@ __metadata:
     awilix: "npm:^8.0.0"
     graphql: "npm:^16.6.0"
   checksum: 10c0/d67d9b6206cb1845a59b7b9289736c0e2b36c78f352c157e478527b34fd6337b084100006b5d365ae6101ea5a88f83e05fbb45f2009ace3df280d4a00132e965
+  languageName: node
+  linkType: hard
+
+"@medusajs/stock-location@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@medusajs/stock-location@npm:2.0.4"
+  peerDependencies:
+    "@medusajs/framework": ^2.0.0
+    "@mikro-orm/core": 5.9.7
+    "@mikro-orm/migrations": 5.9.7
+    "@mikro-orm/postgresql": 5.9.7
+    awilix: ^8.0.1
+  checksum: 10c0/112d43e40be9be0a8fcd68705312cf37b11c9387e3d7005cf8dd4bacbb417b25601fd1fef75fb4271bafc9f17b736a82e263584bdc9a24fa64952bd1b572f81f
   languageName: node
   linkType: hard
 
@@ -8017,6 +8043,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/hoist-non-react-statics@npm:^3.3.1":
+  version: 3.3.5
+  resolution: "@types/hoist-non-react-statics@npm:3.3.5"
+  dependencies:
+    "@types/react": "npm:*"
+    hoist-non-react-statics: "npm:^3.3.0"
+  checksum: 10c0/2a3b64bf3d9817d7830afa60ee314493c475fb09570a64e7737084cd482d2177ebdddf888ce837350bac51741278b077683facc9541f052d4bbe8487b4e3e618
+  languageName: node
+  linkType: hard
+
 "@types/html-minifier-terser@npm:^6.0.0":
   version: 6.1.0
   resolution: "@types/html-minifier-terser@npm:6.1.0"
@@ -10887,6 +10923,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepmerge@npm:^2.1.1":
+  version: 2.2.1
+  resolution: "deepmerge@npm:2.2.1"
+  checksum: 10c0/4379288cabd817587cee92a095ea65d18317b45e48010a2e0d87982b5f432239a144f9c8ebd4ab090cc21f0cb47e51ebfe32921f329b3b3084a2711d5d63e450
+  languageName: node
+  linkType: hard
+
 "deepmerge@npm:^4.2.2, deepmerge@npm:^4.3.1":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
@@ -12312,6 +12355,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"formik@npm:^2.4.5":
+  version: 2.4.6
+  resolution: "formik@npm:2.4.6"
+  dependencies:
+    "@types/hoist-non-react-statics": "npm:^3.3.1"
+    deepmerge: "npm:^2.1.1"
+    hoist-non-react-statics: "npm:^3.3.0"
+    lodash: "npm:^4.17.21"
+    lodash-es: "npm:^4.17.21"
+    react-fast-compare: "npm:^2.0.1"
+    tiny-warning: "npm:^1.0.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/e2853fc7833649386ff183eac9cb6a69a999c4b05aabe5636152e1cec1eb35ac0d9f511425624f0d7a88c6e19d4fd2aa259399a6683f0475c30170a5a3ea4f79
+  languageName: node
+  linkType: hard
+
 "forwarded@npm:0.2.0":
   version: 0.2.0
   resolution: "forwarded@npm:0.2.0"
@@ -12894,7 +12955,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -14837,6 +14898,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: 10c0/fb407355f7e6cd523a9383e76e6b455321f0f153a6c9625e21a8827d10c54c2a2341bd2ae8d034358b60e07325e1330c14c224ff582d04612a46a4f0479ff2f2
+  languageName: node
+  linkType: hard
+
 "lodash.curry@npm:^4.1.1":
   version: 4.1.1
   resolution: "lodash.curry@npm:4.1.1"
@@ -15164,6 +15232,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"medusa-customizable-product-availability@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "medusa-customizable-product-availability@npm:0.0.15"
+  dependencies:
+    formik: "npm:^2.4.5"
+    yup: "npm:^1.3.3"
+  peerDependencies:
+    "@medusajs/icons": 1.1.0
+    "@medusajs/medusa": 1.20.0
+    "@medusajs/ui": 2.3.0
+  checksum: 10c0/28dc896366456bab212ea5b5fd8ef1472c8271e7f5e8abb589f29c89aba45bfa7a2e83a06b58465ecef8d7d27ddd4e05e121ac2a94ada76a07ed030c7bbc9ce7
+  languageName: node
+  linkType: hard
+
 "medusa-file-s3@npm:^1.4.2":
   version: 1.4.2
   resolution: "medusa-file-s3@npm:1.4.2"
@@ -15305,8 +15387,10 @@ __metadata:
     "@medusajs/event-bus-redis": "npm:^1.8.14"
     "@medusajs/file-local": "npm:^1.0.4"
     "@medusajs/icons": "npm:^1.2.1"
+    "@medusajs/inventory": "npm:^2.0.4"
     "@medusajs/medusa": "npm:^1.20.6"
     "@medusajs/medusa-cli": "npm:latest"
+    "@medusajs/stock-location": "npm:^2.0.4"
     "@medusajs/ui": "npm:^3.0.0"
     "@medusajs/utils": "npm:^1.11.9"
     "@stdlib/number-float64-base-normalize": "npm:0.0.8"
@@ -15325,6 +15409,7 @@ __metadata:
     eslint: "npm:^6.8.0"
     express: "npm:^4.17.2"
     jest: "npm:^27.3.1"
+    medusa-customizable-product-availability: "npm:^0.0.15"
     medusa-file-s3: "npm:^1.4.2"
     medusa-fulfillment-manual: "npm:latest"
     medusa-interfaces: "npm:latest"
@@ -17430,6 +17515,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"property-expr@npm:^2.0.5":
+  version: 2.0.6
+  resolution: "property-expr@npm:2.0.6"
+  checksum: 10c0/69b7da15038a1146d6447c69c445306f66a33c425271235bb20507f1846dbf9577a8f9dfafe8acbfcb66f924b270157f155248308f026a68758f35fc72265b3c
+  languageName: node
+  linkType: hard
+
 "proto-list@npm:~1.2.1":
   version: 1.2.4
   resolution: "proto-list@npm:1.2.4"
@@ -17790,6 +17882,13 @@ __metadata:
   version: 6.0.11
   resolution: "react-error-overlay@npm:6.0.11"
   checksum: 10c0/8fc93942976e0c704274aec87dbc8e21f62a2cc78d1c93f9bcfff9f7494b00c60f7a2f0bd48d832bcd3190627c0255a1df907373f61f820371373a65ec4b2d64
+  languageName: node
+  linkType: hard
+
+"react-fast-compare@npm:^2.0.1":
+  version: 2.0.4
+  resolution: "react-fast-compare@npm:2.0.4"
+  checksum: 10c0/f0300c677e95198b5f993cbb8a983dab09586157dc678f9e2b5b29ff941b6677a8776fbbdc425ce102fad86937e36bb45cfcfd797f006270b97ccf287ebfb885
   languageName: node
   linkType: hard
 
@@ -19881,6 +19980,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-case@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tiny-case@npm:1.0.3"
+  checksum: 10c0/c0cbed35884a322265e2cd61ff435168d1ea523f88bf3864ce14a238ae9169e732649776964283a66e4eb882e655992081d4daf8c865042e2233425866111b35
+  languageName: node
+  linkType: hard
+
+"tiny-warning@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "tiny-warning@npm:1.0.3"
+  checksum: 10c0/ef8531f581b30342f29670cb41ca248001c6fd7975ce22122bd59b8d62b4fc84ad4207ee7faa95cde982fa3357cd8f4be650142abc22805538c3b1392d7084fa
+  languageName: node
+  linkType: hard
+
 "tmp@npm:^0.0.33":
   version: 0.0.33
   resolution: "tmp@npm:0.0.33"
@@ -19924,6 +20037,13 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 10c0/93937279934bd66cc3270016dd8d0afec14fb7c94a05c72dc57321f8bd1fa97e5bea6d1f7c89e728d077ca31ea125b78320a616a6c6cd0e6b9cb94cb864381c1
+  languageName: node
+  linkType: hard
+
+"toposort@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "toposort@npm:2.0.2"
+  checksum: 10c0/ab9ca91fce4b972ccae9e2f539d755bf799a0c7eb60da07fd985fce0f14c159ed1e92305ff55697693b5bc13e300f5417db90e2593b127d421c9f6c440950222
   languageName: node
   linkType: hard
 
@@ -20109,7 +20229,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^2.13.0":
+"type-fest@npm:^2.13.0, type-fest@npm:^2.19.0":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: 10c0/a5a7ecf2e654251613218c215c7493574594951c08e52ab9881c9df6a6da0aeca7528c213c622bc374b4e0cb5c443aa3ab758da4e3c959783ce884c3194e12cb
@@ -21281,6 +21401,18 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10c0/dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"yup@npm:^1.3.3":
+  version: 1.4.0
+  resolution: "yup@npm:1.4.0"
+  dependencies:
+    property-expr: "npm:^2.0.5"
+    tiny-case: "npm:^1.0.3"
+    toposort: "npm:^2.0.2"
+    type-fest: "npm:^2.19.0"
+  checksum: 10c0/fe142141365eed0f78fb2e18bdd2f10bf101385dae12a5f9de14884448067bdca16a54b547fc0bffec04a098dd70b4519ff366422f3da006fd11a0717a7863ac
   languageName: node
   linkType: hard
 

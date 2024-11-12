@@ -35,6 +35,7 @@ RUN ls -a
 COPY . /app
 # Rebuild admin
 RUN yarn build
+RUN npx medusa migrations run
 EXPOSE 9000
 
 # Image entrypoint develop

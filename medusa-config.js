@@ -1,4 +1,6 @@
+const { Product } = require("@medusajs/medusa");
 const dotenv = require("dotenv");
+const { title } = require("process");
 
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
@@ -73,6 +75,8 @@ const plugins = [
       settings: {
         products: {
           indexSettings: {
+            filterableAttributes: ["categories.handle", "variants.prices.amount", "variants.inventory_quantity"],
+            sortableAttributes: ["title", "created_at", "variants.prices.amount"],
             searchableAttributes: [
               "title", 
               "description",
@@ -88,7 +92,24 @@ const plugins = [
             ],
           },
           primaryKey: "id",
+          // transformer: (product) => ({
+          //   id: product.id,
+          //   created_at: product.created_at,
+          //   title: product.title,
+          //   description: product.description,
+          //   variant_sku: product.variant_sku,
+          //   thumbnail: product.thumbnail,
+          //   handle: product.handle,
+          //   inStock: product.variants.some(
+          //     (v) => v.inventory_quantity && v.inventory_quantity > 0
+          //   ) ? 1 : 0,
+          //   categories: product.categories.map(c => c.handle),
+          //   variants:  product.variants.map(v => ({ id, title, inventory_quantity, sku, manage_inventory, prices })),
+          //   cheapestPrice: product.variants.flatMap(v => v.prices).map(p => p.amount).sort((a, b) => a - b)[0]
+          //   // include other attributes as needed
+          // }),
         },
+
       },
     },
   },
@@ -149,7 +170,7 @@ const modules = {
     options: {
       redisUrl: REDIS_URL
     }
-  },
+  }
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
