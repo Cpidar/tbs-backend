@@ -41,9 +41,9 @@ const plugins = [
   {
     resolve: `@medusajs/file-local`,
     options: {
-      upload_dir: 'uploads', // optional
-      backend_url: 'https://tabeshelecshop-api.liara.run' // optional
-    }
+      upload_dir: "uploads", // optional
+      backend_url: "https://tabeshelecshop-api.liara.run", // optional
+    },
   },
   // {
   //   resolve: `medusa-file-s3`,
@@ -75,19 +75,23 @@ const plugins = [
       settings: {
         products: {
           indexSettings: {
-            filterableAttributes: ["categories.handle", "variants.prices.amount", "variants.inventory_quantity"],
-            sortableAttributes: ["title", "created_at", "variants.prices.amount"],
-            searchableAttributes: [
-              "title", 
+            filterableAttributes: [
+              "categories.handle",
+              "variants.prices.amount",
+              "variants.inventory_quantity",
+            ],
+            sortableAttributes: [
+              "title",
+              "created_at",
+              "variants.prices.amount",
+            ],
+            searchableAttributes: ["title", "description", "variant_sku"],
+            displayedAttributes: [
+              "id",
+              "title",
               "description",
               "variant_sku",
-            ],
-            displayedAttributes: [
-              "id", 
-              "title", 
-              "description", 
-              "variant_sku", 
-              "thumbnail", 
+              "thumbnail",
               "handle",
             ],
           },
@@ -109,10 +113,96 @@ const plugins = [
           //   // include other attributes as needed
           // }),
         },
-
       },
     },
   },
+  // {
+  //   resolve: `medusa-plugin-abandoned-cart`,
+  //   /** @type {import('medusa-plugin-abandoned-cart').PluginOptions} */
+  //   options: {
+  //     sendgridEnabled: true,
+  //     from: process.env.SENDGRID_FROM,
+  //     enableUI: true,
+  //     subject: "You have something in your cart",
+  //     templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //     days_to_track: 7,
+  //     set_as_completed_if_overdue: true,
+  //     max_overdue: "2h",
+  //     localization: {
+  //       fr: {
+  //         subject: "Vous avez quelque chose dans votre panier",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_FR,
+  //       },
+  //       pl: {
+  //         subject: "Masz coś w koszyku",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_PL,
+  //       },
+  //       en: {
+  //         subject: "You have something in your cart",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //       },
+  //     },
+  //     intervals: [
+  //       {
+  //         interval: "1h",
+  //         subject: "You have something in your cart",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //         localization: {
+  //           fr: {
+  //             subject: "Vous avez quelque chose dans votre panier",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_FR,
+  //           },
+  //           pl: {
+  //             subject: "Masz coś w koszyku",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_PL,
+  //           },
+  //           en: {
+  //             subject: "You have something in your cart",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //           },
+  //         },
+  //       },
+  //       {
+  //         interval: "1d",
+  //         subject: "You have something in your cart",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //         localization: {
+  //           fr: {
+  //             subject: "Vous avez quelque chose dans votre panier",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_FR,
+  //           },
+  //           pl: {
+  //             subject: "Masz coś w koszyku",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_PL,
+  //           },
+  //           en: {
+  //             subject: "You have something in your cart",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //           },
+  //         },
+  //       },
+  //       {
+  //         interval: "5d",
+  //         subject: "You have something in your cart",
+  //         templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //         localization: {
+  //           fr: {
+  //             subject: "Vous avez quelque chose dans votre panier",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_FR,
+  //           },
+  //           pl: {
+  //             subject: "Masz coś w koszyku",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE_PL,
+  //           },
+  //           en: {
+  //             subject: "You have something in your cart",
+  //             templateId: process.env.SENDGRID_ABANDONED_CART_TEMPLATE,
+  //           },
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
   // {
   //   resolve: "medusa-plugin-strapi-ts",
   //   options: {
@@ -162,15 +252,15 @@ const modules = {
   eventBus: {
     resolve: "@medusajs/event-bus-redis",
     options: {
-      redisUrl: REDIS_URL
-    }
+      redisUrl: REDIS_URL,
+    },
   },
   cacheService: {
     resolve: "@medusajs/cache-redis",
     options: {
-      redisUrl: REDIS_URL
-    }
-  }
+      redisUrl: REDIS_URL,
+    },
+  },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
@@ -181,7 +271,7 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
-  redis_url: REDIS_URL
+  redis_url: REDIS_URL,
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
