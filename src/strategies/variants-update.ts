@@ -16,7 +16,7 @@ interface ContextData {
 }
 
 class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
-    static batchType = "variatn-update"
+    static batchType = "variants-update"
     static identifier = "variatn-update-strategy"
 
     protected batchJobService_: BatchJobService
