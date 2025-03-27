@@ -92,7 +92,7 @@ class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
         const count = products.length
 
         const data: ContextData[] = products
-            .map(p => ({ sku: `${p.GroupId}${p.Code}`, quantity: +(p.ProductStocks[0].Stock).split('/')[0], price: +p.Price }))
+            .map(p => ({ sku: `${p.GroupId}${p.Code}`, quantity: +(p.ProductStocks[0].Stock).split('/')[0], price: +p.Price / 10 }))
 
         await this.batchJobService_
             .update(batchJob, {
