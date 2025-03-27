@@ -49,7 +49,7 @@ class TtlCacheService implements ICacheService {
         this.ttlCache.set(key, data, { ttl })
         const gen = this.ttlCache.keys()
         console.log('cache saved', key, data)
-        return this.cacheService_.set(key, data)
+        return this.cacheService_.set(key, data, ttl)
 
         console.log('hase key', gen.next())
         return this.ttlCache.set(key, data, { ttl })

@@ -1,6 +1,6 @@
 import https from 'https'
 
-export async function fetchOTP(hostname, path, data) {
+export async function fetchOTP(hostname, path, data, token?) {
     return new Promise(async (resolve, reject) => {
 
         const options = {
@@ -10,7 +10,8 @@ export async function fetchOTP(hostname, path, data) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Content-Length': data.length
+                'Content-Length': data.length,
+                "Authorization": `Bearer ${token}` 
             }
         };
 

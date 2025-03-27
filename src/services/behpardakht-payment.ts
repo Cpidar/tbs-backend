@@ -143,49 +143,49 @@ abstract class BehpardakhtPaymentService extends AbstractPaymentProcessor {
       }
     }
 
-    // try {
-    //   // let response;
-    //   this.logger.info(amount)
-    //   this.logger.info(
-    //     "payment session data: " + JSON.stringify(paymentSessionData)
-    //   );
-    //   // if (paymentSessionData.readyToPay) {
-    //   const response = await this.behpardakht_.paymentRequest({
-    //     amount: `${amount}`,
-    //     orderId: Date.now(),
-    //     callbackUrl: this.options_.callbackUrl || 'http://localhost:8000/callback',
-    //   });
+    try {
+      // let response;
+      this.logger.info(amount)
+      this.logger.info(
+        "payment session data: " + JSON.stringify(paymentSessionData)
+      );
+      // if (paymentSessionData.readyToPay) {
+      const response = await this.behpardakht_.paymentRequest({
+        amount: `${amount}`,
+        orderId: Date.now(),
+        callbackUrl: this.options_.callbackUrl || 'http://localhost:8000/callback',
+      });
 
-    //   if (this.options_.enabledDebugLogging) {
-    //     this.logger.info(`response from behpardakht: ${JSON.stringify(response)}`);
-    //   }
-    //   if (response.resCode === 0) {
+      if (this.options_.enabledDebugLogging) {
+        this.logger.info(`response from behpardakht: ${JSON.stringify(response)}`);
+      }
+      if (response.resCode === 0) {
 
-    //     const result: PaymentProcessorSessionResponse = {
-    //       session_data: {
-    //         ...response,
-    //         customer,
-    //       }
-    //     }
+        const result: PaymentProcessorSessionResponse = {
+          session_data: {
+            ...response,
+            customer,
+          }
+        }
 
-    //     return result;
-    //   } else {
-    //     const result: PaymentProcessorSessionResponse = {
-    //       session_data: {
-    //         ...response,
-    //         customer,
-    //       }
-    //     }
+        return result;
+      } else {
+        const result: PaymentProcessorSessionResponse = {
+          session_data: {
+            ...response,
+            customer,
+          }
+        }
 
-    //     this.logger.info(`response from behpardakht: ${response.resCode}`)
-    //     return result;
-    //   }
-    //   // }
-    // } catch (error) {
-    //   this.logger.error(`error from behpardakht: ${JSON.stringify(error)}`);
-    //   const e = error as Error;
-    //   // return this.buildError("initialization error", e);
-    // }
+        this.logger.info(`response from behpardakht: ${response.resCode}`)
+        return result;
+      }
+      // }
+    } catch (error) {
+      this.logger.error(`error from behpardakht: ${JSON.stringify(error)}`);
+      const e = error as Error;
+      // return this.buildError("initialization error", e);
+    }
   }
 
   async authorizePayment(

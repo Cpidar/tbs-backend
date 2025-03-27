@@ -7,6 +7,7 @@ import {
     MedusaRequest,
     ProductVariantService
 } from "@medusajs/medusa"
+import PishroAccService from "src/services/pishro-acc"
 import { EntityManager } from "typeorm"
 
 interface ContextData {
@@ -24,13 +25,15 @@ class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
     protected manager_: EntityManager
     protected transactionManager_: EntityManager
     protected store_: StoreService
+    protected pishroAccService_: PishroAccService
 
     constructor(
         {
             manager,
             storeService,
             productVariantService,
-            batchJobService
+            batchJobService,
+            pishroAccService
         },
         options
     ) {
@@ -38,7 +41,8 @@ class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
             manager,
             storeService,
             productVariantService,
-            batchJobService
+            batchJobService,
+            pishroAccService
         })
 
 
@@ -46,6 +50,7 @@ class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
         this.store_ = storeService
         this.batchJobService_ = batchJobService
         this.productVariantService_ = productVariantService
+        this.pishroAccService_ = pishroAccService
     }
 
 
@@ -54,68 +59,129 @@ class WoocommerceImportStrategy extends AbstractBatchJobStrategy {
         req: MedusaRequest
     ): Promise<CreateBatchJobInput> {
 
-        console.log(req.body)
+        const {
+            entity: {
+                username,
+                appcode,
+                password
+            }
+        } = (req.body as any).context
 
+        console.log(username,
+            appcode,
+            password)
         return batchJob
     }
 
     async preProcessBatchJob(batchJobId: string): Promise<void> {
-        return
+        return this.atomicPhase_(async (manager) => {
+
+        const batchJob = (await this.batchJobService_
+            .retrieve(batchJobId))
+
+        const {
+            entity: {
+                username,
+                appcode,
+                password
+            }
+        } = batchJob.context as any
+
+        const token = await this.pishroAccService_.getToken({ username, appcode, password })
+        const products = await this.pishroAccService_.getPorductsData(token)
+        const count = products.length
+
+        const data: ContextData[] = products
+            .map(p => ({ sku: `${p.GroupId}${p.Code}`, quantity: +(p.ProductStocks[0].Stock).split('/')[0], price: +p.Price }))
+
+        await this.batchJobService_
+            .update(batchJob, {
+                context: {
+                    data
+                },
+                result: {
+                    advancement_count: 0,
+                    count,
+                    stat_descriptors: [
+                        {
+                            key: "product-publish-count",
+                            name: "Number of products to publish",
+                            message:
+                                `${count} product(s) will be published.`,
+                        },
+                    ],
+                },
+            })
+        })
     }
 
 
     async processJob(batchJobId: string): Promise<void> {
         return this.atomicPhase_(async (manager) => {
 
-            const batchJob = (await this.batchJobService_
-                .withTransaction(manager)
-                .retrieve(batchJobId))
+        const batchJob = (await this.batchJobService_
+            .withTransaction(manager)
+            .retrieve(batchJobId))
 
-            const productVariantServiceTx = this.productVariantService_
-                .withTransaction(manager)
+        // console.log(batchJob)
 
-            const context = batchJob.context as { data: ContextData[] }
-            const data = context.data
-            const count = data.length
+        const productVariantServiceTx = this.productVariantService_
+        .withTransaction(manager)
 
-            data.forEach(async d => {
-                const { sku, quantity, price } = d
-                
+        const data = batchJob.context?.data as ContextData[]
+
+        const updatedProducts = await Promise.all(data.map(async d => {
+            console.log(d)
+            const { sku, quantity, price } = d
+
+            try {
+
                 const variant = await productVariantServiceTx.retrieveBySKU(sku, {
                     // region_id: "reg_01HV8YJHZYC979X27ABJDP0Q67",
                     relations: ["prices"]
                 })
-                const variantId = variant.id
 
-                await productVariantServiceTx.updateVariantPrices([{
-                    variantId,
-                    prices: [{
-                        amount: price,
-                        currency_code: 'irr'
-                    }]
-                }])
+                console.log(variant)
 
-                await productVariantServiceTx.update(variantId, { inventory_quantity: quantity })
-            })
+                if (variant) {
+
+                    const variantId = variant.id
+
+                    await productVariantServiceTx.updateVariantPrices([{
+                        variantId,
+                        prices: [{
+                            amount: price,
+                            currency_code: 'irr'
+                        }]
+                    }])
+
+                    await productVariantServiceTx.update(variantId, { inventory_quantity: quantity })
+                }
+
+                return variant
+            } catch (e) {
+                console.error(e)
+            }
+        }))
 
 
 
-            await this.batchJobService_
-                .withTransaction(manager)
-                .update(batchJobId, {
-                    result: {
-                        advancement_count: count,
-                        count,
-                        stat_descriptors: [
-                            {
-                                key: "variatn-update-count",
-                                name: "Number of product variants to update",
-                                message:
-                                    `${count} product(s) will be updated.`,
-                            },
-                        ],
-                    },
-                })
+        //     await this.batchJobService_
+        //         .withTransaction(manager)
+        //         .update(batchJobId, {
+        //             result: {
+        //                 advancement_count: count,
+        //                 count,
+        //                 stat_descriptors: [
+        //                     {
+        //                         key: "variatn-update-count",
+        //                         name: "Number of product variants to update",
+        //                         message:
+        //                             `${count} product(s) will be updated.`,
+        //                     },
+        //                 ],
+        //             },
+        //         })
 
 
 
